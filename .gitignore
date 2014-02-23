@@ -1,0 +1,93 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.bin
+*.hex
+*.elf
+*.map
+*.o.d
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.bak
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# Project Files #
+#######################
+*.epf
+*.mpf
+*.wlf
+*.mti
+
+# Project Directories #
+#######################
+work/
+build/
+Build/
+release/
+Release/
+debug/
+Debug/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.tmp
+~$*
+ehthumbs.db
+Thumbs.db
+
+# Project Specific #
+######################
+*.swp
+testing/null.cpp
+testing/pdp
+testing/test_log.txt
+testing/tracefile.txt
+testing/output/SubroutineCall/*.txt
+testing/output/AddressingModes/*.txt
+testing/output/Base/*.txt
+testing/output/ConditionalBranches/*.txt
+testing/output/ConditionCode/*.txt
+testing/output/DoubleOperand/*.txt
+testing/output/SingleOperand/*.txt
+testing/output/Other/*.txt
+testing/config.ini
+src/586.vim
+testing/input/ConditionCode/macro11
+testing/input/ConditionCode/obj2ascii
+testing/input/ConditionalBranches/macro11
+testing/input/ConditionalBranches/obj2ascii
+testing/input/DoubleOperand/macro11
+testing/input/DoubleOperand/obj2ascii
+testing/input/System/macro11
+testing/input/System/obj2ascii
+testing/input/SingleOperand/macro11
+testing/input/SingleOperand/obj2ascii
+*.obj
+
+
