@@ -5,21 +5,8 @@
 //      Author: Jordan Fluth
 //******************************************************************************
 
-#include <stdint.h>
+#include "pathH.h"
 
-class path_history {
-	public:
-		path_history();
-		~path_history();
-		uint16_t get_history();
-		void update(bool result);
-		void revert_update();
-	
-	private:
-		uint16_t history;
-		uint16_t old_msb;
-		
-};
 
 //Constructor function used to initial private variables
 path_history::path_history() {
@@ -51,6 +38,4 @@ void path_history::revert_update() {
 	history  = ((history >> 0x1) + old_msb);
 }
 
-//Deconstructor function
-path_history::~path_history() {	}
 
