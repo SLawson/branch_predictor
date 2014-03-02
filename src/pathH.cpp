@@ -19,7 +19,7 @@ class path_history {
 		uint16_t history;
 		uint16_t old_msb;
 		
-}
+};
 
 //Constructor function used to initial private variables
 path_history::path_history() {
