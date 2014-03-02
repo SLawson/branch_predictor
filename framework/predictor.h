@@ -13,13 +13,27 @@
 #include "op_state.h"   // defines op_state_c (architectural state) class 
 #include "tread.h"      // defines branch_record_c class
 
+// Team-generated header files
+#include "../src/predictor_table.h" // defines predictor_table class
+#include "../src/pathH.cpp"         // defines path_history class
+
 class PREDICTOR
 {
-public:
+  public:
+    // predictor class uses initialization list for member objects that require arguments
+    // for their constructors
+    PREDICTOR(): local(LOCAL_CTR_BITS, LOCAL_TBL_SIZE),
+                 global(GLOBAL_CTR_BITS, GLOBAL_TBL_SIZE),
+                 choice(CHOICE_CTR_BITS, CHOICE_TBL_SIZE) {};
     bool get_prediction(const branch_record_c* br, const op_state_c* os);
-
     void update_predictor(const branch_record_c* br, const op_state_c* os, bool taken);
 
+  private:
+    bool make_decision(const branch_record_c* br);
+    predictor_table local;
+    predictor_table global;
+    predictor_table choice;
+    path_history path_h;
 };
 
 #endif // PREDICTOR_H_SEEN
