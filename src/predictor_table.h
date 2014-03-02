@@ -17,6 +17,14 @@
 
 typedef unsigned int uint;
 
+// Macros
+#define LOCAL_CTR_BITS 3
+#define LOCAL_TBL_SIZE 1024
+#define GLOBAL_CTR_BITS 2
+#define GLOBAL_TBL_SIZE 4096
+#define CHOICE_CTR_BITS 2
+#define CHOICE_TBL_SIZE 4096
+
 // Class Interface
 
 class predictor_table{
