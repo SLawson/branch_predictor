@@ -5,6 +5,7 @@
 //      Author: Rob Gaskell
 //******************************************************************************
 
+#include <cassert>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -12,6 +13,8 @@
 using namespace std;
 
 #include "../framework/predictor.h"
+
+#define DEBUG
 
 bool Parse_traceline(string traceline, branch_record_c & BR);
 
@@ -24,6 +27,8 @@ branch_record_c BranchRecord;
 int ProgramCounter;
 bool Prediction;
 bool Taken;
+
+bool MPrediction = false;
 
 string traceline;
 string filename("test/default.ascii");
@@ -48,11 +53,15 @@ ifstream tracefile;
 		Prediction = BranchPredictor.get_prediction(&BranchRecord, NULL);
 		BranchPredictor.update_predictor(&BranchRecord, NULL, Taken);
 
+		//Test that the Prediction was correct
+		assert(Prediction == MPrediction);
+
 		//Display Prediction Results
 		cout <<" Prediction: " <<Prediction <<endl;
 		cout <<"      Taken: " <<Taken <<endl;
 	}
 
+	cin.get();
 	return 0;
 }
 
