@@ -18,12 +18,10 @@ using namespace std;
 class Sat_counter
 {
     public:
-         Sat_counter();//Constructor
-        ~Sat_counter();//Destructor
-
+         Sat_counter(int bits);//Constructor
 
         bool get_result();//gets the result
-        void Sat_counter(int bits);//
+        
         //This function keeps limits and increments the count.
         void update_count(bool count_up);
     private:
