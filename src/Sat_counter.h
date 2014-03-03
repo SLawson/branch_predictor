@@ -28,6 +28,7 @@ class Sat_counter
         //Member variables
         uint8_t value;
         uint8_t limit;
+		uint8_t counter_bits;
 
 };
 

@@ -14,22 +14,15 @@ Description:
 Sat_counter::Sat_counter(int bits)
 {
     value = 0;
-    if(bits == 2)
-    limit = 3;
-    else
-    limit = 7;
+	counter_bits = bits; //stores the current bit value
+    limit = ((1 << bits) -1);
+
 }
 
 //This shifts to the MSB depending on the limit set by Sat_counter. This will return a bool  
 bool Sat_counter::get_result()
 {
-    bool MSB_value;
-    if(limit == 3)
-	MSB_value = (value >> 1);//Shift so MSB is the second bit
-    if(limit == 7)
- 	MSB_value = (value >> 2);//Shift so MSB is the third bit
-    
-    return MSB_value;
+	return (bool) (value >> (bits - 1));//Shift so MSB is the second bit
 }
 
 //This function updates the count it either increments if count_up is true and then
@@ -39,12 +32,12 @@ void Sat_counter::update_count(bool count_up)
     if(count_up)
     {
         if(value < limit)//Increment the count unless value is larger then the limit
-        value++;//Increment the count
+        ++value;//Increment the count
     }
     else
     {
-        if(value != 0)//Decrement the count unless it equals zero
-        value--;//Decrement the count
+        if(value > 0)//Decrement the count unless it equals zero
+        --value;//Decrement the count
     }
 }
 
