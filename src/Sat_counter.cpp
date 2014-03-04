@@ -22,7 +22,7 @@ Sat_counter::Sat_counter(int bits)
 //This shifts to the MSB depending on the limit set by Sat_counter. This will return a bool  
 bool Sat_counter::get_result()
 {
-	return (bool) (value >> (bits - 1));//Shift so MSB is the second bit
+	return (bool) (value >> (counter_bits - 1));//Shift so MSB is the second bit
 }
 
 //This function updates the count it either increments if count_up is true and then

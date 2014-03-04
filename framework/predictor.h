@@ -15,7 +15,7 @@
 
 // Team-generated header files
 #include "../src/predictor_table.h" // defines predictor_table class
-#include "../src/pathH.cpp"         // defines path_history class
+#include "../src/pathH.h"         // defines path_history class
 
 class PREDICTOR
 {

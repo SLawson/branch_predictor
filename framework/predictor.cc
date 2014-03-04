@@ -16,7 +16,7 @@ bool PREDICTOR::get_prediction(const branch_record_c* br, const op_state_c* os)
     prediction = true;
 
   else
-    prediction = make_decision(const branch_record_c* br);
+    prediction = make_decision(br);
 
   return prediction;   // true for taken, false for not taken
 }
