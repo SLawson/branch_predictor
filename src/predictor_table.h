@@ -4,6 +4,8 @@
 //  Created on: March 1, 2014
 //      Author: Scott Lawson 
 //     Project: Branch Predictor
+// Description: Header file for predictor_table.cpp - class interface for 
+//                predictor_table class
 //******************************************************************************
 
 #ifndef _PREDICTOR_TABLE_H_
@@ -16,14 +18,6 @@
 // Typedefs
 
 typedef unsigned int uint;
-
-// Macros
-#define LOCAL_CTR_BITS 3
-#define LOCAL_TBL_SIZE 1024
-#define GLOBAL_CTR_BITS 2
-#define GLOBAL_TBL_SIZE 4096
-#define CHOICE_CTR_BITS 2
-#define CHOICE_TBL_SIZE 4096
 
 // Class Interface
 

@@ -4,9 +4,14 @@
 //  Created on: March 1, 2014
 //      Author: Scott Lawson 
 //     Project: Branch Predictor
+// Description: Function definitions for predictor_table class
 //******************************************************************************
 
+
+
 #include "predictor_table.h"
+
+
 
 // constructor
 predictor_table::predictor_table(int ctr_bits, int table_size){
@@ -79,4 +84,6 @@ predictor_table::~predictor_table(){
 
   return;
 }
+
+
 
