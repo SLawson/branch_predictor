@@ -16,13 +16,14 @@ using namespace std;
 
 #define DEBUG
 
-bool Parse_traceline(string traceline, branch_record_c & BR);
+bool Parse_traceline(string traceline, branch_record_c & BR, bool & MPrediction);
 
 int main(int argc, char * argv[]) {
 
 PREDICTOR BranchPredictor;
 branch_record_c BranchRecord;
 
+int tracecount = 0;
 
 int ProgramCounter;
 bool Prediction;
@@ -46,8 +47,10 @@ ifstream tracefile;
 	//Read file while file has data
 	while(getline(tracefile, traceline)) {
 
+		++tracecount;	//Increment traceline count
+
 		//Read trace file and display fields
-		Taken = Parse_traceline(traceline, BranchRecord);
+		Taken = Parse_traceline(traceline, BranchRecord, MPrediction);
 
 		//Run Predictor
 		Prediction = BranchPredictor.get_prediction(&BranchRecord, NULL);
@@ -57,41 +60,43 @@ ifstream tracefile;
 		assert(Prediction == MPrediction);
 
 		//Display Prediction Results
-		cout <<" Prediction: " <<Prediction <<endl;
-		cout <<"      Taken: " <<Taken <<endl;
-	}
+		printf("\nPC: %x\t Trace line #: %d\n", BranchRecord.instruction_addr, tracecount);
+		printf("\tConditional: %x\n", BranchRecord.is_conditional);
+		printf("\t   Sub Call: %x\n", BranchRecord.is_call);
+		printf("\t Sub Return: %x\n", BranchRecord.is_return);
+		printf("\t   Indirect: %x\n", BranchRecord.is_indirect);
 
+		printf("\t Prediction: %d\n", Prediction);
+		printf("\tMPrediction: %d\n", MPrediction);
+		printf("\t      Taken: %d\n", Taken);
+	}
+	cout <<"Tester complete- press enter";
 	cin.get();
 	return 0;
 }
 
-bool Parse_traceline(string traceline, branch_record_c & BR) {
+bool Parse_traceline(string traceline, branch_record_c & BR, bool & MPrediction) {
 
 bool Taken;
 int length;
-char * temp;
 
-	//Display line read from trace file
-	cout <<traceline <<endl;
+uint tempMPrediction = 0;
+uint tempTaken = 0;
+uint tempCond = 0;
+uint tempCall = 0;
+uint tempReturn = 0;
+uint tempIndirect = 0;
 
-	//Read Taken character
-	if(traceline[0] == '1')
-		Taken = true;
-	else
-		Taken = false;
+	sscanf(traceline.c_str(),"%x%x%x%x%x%x%x%x", &tempMPrediction, &tempTaken, &BR.instruction_addr, &BR.branch_target, &tempCond, &tempCall, &tempReturn, &tempIndirect);
 
-	//Read PC from trace file
-	length = traceline.length();
-	temp = new char[length];
-	for(int i = 2; i < length; ++i)
-		temp[i-2] = traceline[i];
+	BR.is_conditional = tempCond; 	//Convert hex to integer
+	BR.is_call = tempCall; 			//Convert hex to integer
+	BR.is_return = tempReturn; 		//Convert hex to integer
+	BR.is_indirect = tempIndirect;	//Convert hex to integer
+	MPrediction = tempMPrediction; 	//Convert hex to integer
+	Taken = tempTaken;
 
-	BR.instruction_addr = strtol(temp, NULL, 16);	//Convert hex to integer
-
-	//Display hex PC address
-	cout <<"Branch Addr: " <<temp <<endl;
-
-	delete [] temp;
+//	delete [] temp;
 
 	return Taken; //Return taken/not taken value
 }
