@@ -14,8 +14,6 @@ using namespace std;
 
 #include "../framework/predictor.h"
 
-#define DEBUG
-
 bool Parse_traceline(string traceline, branch_record_c & BR, bool & MPrediction);
 
 int main(int argc, char * argv[]) {
