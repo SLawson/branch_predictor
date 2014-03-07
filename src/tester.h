@@ -10,5 +10,10 @@
 
 #include <cassert>
 
+#ifndef DEBUG
+#define NDEBUG
+
+#endif
+
 
 #endif /* TESTER_H_ */
