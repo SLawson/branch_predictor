@@ -9,11 +9,12 @@ Description:
 
 
 #include "Sat_counter.h"
+#include <math.h>
 
 //Constructor function to initialize private variables
 Sat_counter::Sat_counter(int bits)
 {
-    value = 0;
+    value = (pow(2, bits))/2;
 	counter_bits = bits; //stores the current bit value
     limit = ((1 << bits) -1);
 
