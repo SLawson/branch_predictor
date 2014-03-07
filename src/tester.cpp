@@ -5,7 +5,7 @@
 //      Author: Rob Gaskell
 //******************************************************************************
 
-#include <cassert>
+#include "tester.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -54,10 +54,12 @@ ifstream tracefile;
 
 		//Run Predictor
 		Prediction = BranchPredictor.get_prediction(&BranchRecord, NULL);
+
+		//Test that the Prediction matches expected value
+		assert(Prediction == MPrediction);
+
 		BranchPredictor.update_predictor(&BranchRecord, NULL, Taken);
 
-		//Test that the Prediction was correct
-		assert(Prediction == MPrediction);
 
 		//Display Prediction Results
 		printf("\nPC: %x\t Trace line #: %d\n", BranchRecord.instruction_addr, tracecount);
