@@ -4,7 +4,8 @@
 CFLAGS = -g -Wall
 CXXFLAGS = -g -Wall
 
-debugflag = -DDEBUG
+debugflags = -DDEBUG
+releaseflags = -DNDEBUG
 
 objects = cbp_inst.o main.o op_state.o predictor.o tread.o
 
@@ -18,7 +19,7 @@ tester_src = $(predict_path)/tester.cpp
 tester_objects = cbp_inst.o op_state.o predictor.o tread.o
 
 predictor : $(objects) $(source)
-	$(CXX) -o $@ $(objects) $(source)
+	$(CXX) $(NDEBUG) -o $@ $(objects) $(source)
 
 tester: $(tester_src) $(tester_objects) $(source)
 	$(CXX) $(debugflag) -o $@ $(tester_src) $(tester_objects) $(source)

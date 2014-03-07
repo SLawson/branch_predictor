@@ -11,7 +11,9 @@
 #include <cassert>
 
 #ifndef DEBUG
+#ifndef NDEBUG
 #define NDEBUG
+#endif
 
 #endif
 
