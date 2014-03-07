@@ -10,6 +10,7 @@ Description:
 
 #include "Sat_counter.h"
 #include <math.h>
+#include "tester.h"
 
 //Constructor function to initialize private variables
 Sat_counter::Sat_counter(int bits)
@@ -40,5 +41,8 @@ void Sat_counter::update_count(bool count_up)
         if(value > 0)//Decrement the count unless it equals zero
         --value;//Decrement the count
     }
+
+	assert(value < limit);
+	assert(value >=0);
 }
 
