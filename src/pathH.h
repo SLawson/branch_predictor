@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "tester.h"
 
 class path_history {
 	

@@ -17,19 +17,23 @@ path_history::path_history() {
 
 //Returns the twelve bits of path history
 uint16_t path_history::get_history() {
-
+	#ifdef DEBUG
+		cout << "The path history is: " << history << '\n';
+	#endif
+	
 	return history;
 }
 
 //Speculatively update the path history
 void path_history::update(bool result) {
-	//there is speculative and actual... need to account to the case 
-	//that speculative is wrong...
 	
 	old_msb = (history & 0x800);
 	history = ((history << 0x1) | result);
 	history = (history & 0x0FFF);
 	
+	#ifdef DEBUG
+		cout << "The new path history is: " << history << '\n';
+	#endif
 }
 
 //If the speculative update was wrong we must revert
