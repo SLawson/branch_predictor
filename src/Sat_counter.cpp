@@ -42,7 +42,7 @@ void Sat_counter::update_count(bool count_up)
         --value;//Decrement the count
     }
 
-	assert(value < limit);
-	assert(value >=0);
+	//assert(value < limit);
+	//assert(value >=0);
 }
 

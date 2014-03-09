@@ -17,11 +17,13 @@
 bool PREDICTOR::get_prediction(const branch_record_c* br, const op_state_c* os)
 {
   bool prediction = false;
-
+	
+	#ifdef DEBUG
   printf("%0x %0x %1d %1d %1d %1d ",br->instruction_addr, br->branch_target,
                                     br->is_indirect, br->is_conditional,
                                     br->is_call, br->is_return);
-
+	#endif
+  
   if (!(br->is_conditional) || br->is_call || br-> is_return)
     prediction = true;
 
