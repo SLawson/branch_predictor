@@ -29,16 +29,8 @@ predictor_table::predictor_table(int ctr_bits, int table_size){
   }
   
   table_len = table_size;
-  
-  index_mask = 0;
 
-  // Assuming table_ size is always an integer power of 2. Generate bit mask by 
-  // shifting table_size's single set bit and ORing it with index_mask until 
-  // table_size is zero.
-  while (table_size > 0){
-    index_mask = index_mask | table_size;
-    table_size = table_size >> 1;
-  }
+  index_mask = table_size -1;
 
   return;
 }
@@ -55,8 +47,9 @@ bool predictor_table::get_prediction(uint index){
   // based on the table size) must be masked off.
 
   // Aliasing is an expected side effect of this action.
+  uint new_index = index & index_mask;
 
-  return table[index & index_mask] -> get_result();
+  return table[new_index] -> get_result();
 }
 
 
