@@ -19,7 +19,7 @@ tester_src = $(predict_path)/tester.cpp
 tester_objects = cbp_inst.o op_state.o predictor.o tread.o
 
 predictor : $(objects) $(source)
-	$(CXX) $(NDEBUG) -o $@ $(objects) $(source)
+	$(CXX) $(NDEBUG) -o $@ $(objects) $(source) -g
 
 tester: $(tester_src) $(tester_objects) $(source)
 	$(CXX) $(debugflag) -o $@ $(tester_src) $(tester_objects) $(source)
