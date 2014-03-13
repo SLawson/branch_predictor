@@ -8,7 +8,12 @@
 #ifndef TESTER_H_
 #define TESTER_H_
 
+#include <stdlib.h>
+#include <string>
+#include <fstream>
 #include <cassert>
+#include <iostream>
+using namespace std;
 
 #ifndef DEBUG
 #ifndef NDEBUG

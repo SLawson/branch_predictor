@@ -19,10 +19,10 @@ tester_src = $(predict_path)/tester.cpp
 tester_objects = cbp_inst.o op_state.o predictor.o tread.o
 
 predictor : $(objects) $(source)
-	$(CXX) $(NDEBUG) -o $@ $(objects) $(source) -g
+	$(CXX) $(releaseflags) -o $@ $(objects) $(source) -g
 
 tester: $(tester_src) $(tester_objects) $(source)
-	$(CXX) $(debugflag) -o $@ $(tester_src) $(tester_objects) $(source)
+	$(CXX) $(debugflags) -o $@ $(tester_src) $(tester_objects) $(source) -g
 
 cbp_inst.o : cbp_inst.h cbp_assert.h cbp_fatal.h cond_pred.h finite_stack.h indirect_pred.h stride_pred.h value_cache.h
 main.o : tread.h cbp_inst.h predictor.h op_state.h

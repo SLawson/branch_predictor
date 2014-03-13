@@ -9,6 +9,8 @@ Description:
 
 
 #include "Sat_counter.h"
+#include <string>
+#include <iostream>
 #include <math.h>
 #include "tester.h"
 
@@ -24,6 +26,10 @@ Sat_counter::Sat_counter(int bits)
 //This shifts to the MSB depending on the limit set by Sat_counter. This will return a bool  
 bool Sat_counter::get_result()
 {
+	#ifdef DEBUG
+	printf("\tOld Counter Value: %x\n", value);
+	#endif
+
 	return (bool) (value >> (counter_bits - 1));//Shift so MSB is the second bit
 }
 
@@ -41,8 +47,11 @@ void Sat_counter::update_count(bool count_up)
         if(value > 0)//Decrement the count unless it equals zero
         --value;//Decrement the count
     }
+	#ifdef DEBUG
+		printf("\tNew Counter Value: %x\n", value);
+	#endif
 
-	//assert(value < limit);
-	//assert(value >=0);
+	//Check that saturation counter is within bounds
+	assert(value <= limit && value >=0);
 }
 

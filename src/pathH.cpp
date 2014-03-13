@@ -6,7 +6,7 @@
 //******************************************************************************
 
 #include "pathH.h"
-
+#include "tester.h"
 
 //Constructor function used to initial private variables
 path_history::path_history() {
@@ -18,7 +18,7 @@ path_history::path_history() {
 //Returns the twelve bits of path history
 uint16_t path_history::get_history() {
 	#ifdef DEBUG
-		cout << "The path history is: " << history << '\n';
+		printf("\tThe path history is: %x\n", history);
 	#endif
 	
 	return history;
@@ -32,7 +32,7 @@ void path_history::update(bool result) {
 	history = (history & 0x0FFF);
 	
 	#ifdef DEBUG
-		cout << "The new path history is: " << history << '\n';
+		printf("\tThe new path history is: %x\n", history);
 	#endif
 }
 

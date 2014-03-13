@@ -6,11 +6,6 @@
 //******************************************************************************
 
 #include "tester.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
-using namespace std;
 
 #include "../framework/predictor.h"
 
@@ -53,6 +48,13 @@ ifstream tracefile;
 			//Read trace file and display fields
 			Taken = Parse_traceline(traceline, BranchRecord, MPrediction);
 
+			//Display Branch Details
+			printf("\nPC: %x\t Trace line #: %d\n", BranchRecord.instruction_addr, tracecount);
+			printf("\tConditional: %x\n", BranchRecord.is_conditional);
+			printf("\t   Sub Call: %x\n", BranchRecord.is_call);
+			printf("\t Sub Return: %x\n", BranchRecord.is_return);
+			printf("\t   Indirect: %x\n", BranchRecord.is_indirect);
+
 			//Run Predictor
 			Prediction = BranchPredictor.get_prediction(&BranchRecord, NULL);
 
@@ -61,17 +63,10 @@ ifstream tracefile;
 
 			BranchPredictor.update_predictor(&BranchRecord, NULL, Taken);
 
-
-			//Display Prediction Results
-			printf("\nPC: %x\t Trace line #: %d\n", BranchRecord.instruction_addr, tracecount);
-			printf("\tConditional: %x\n", BranchRecord.is_conditional);
-			printf("\t   Sub Call: %x\n", BranchRecord.is_call);
-			printf("\t Sub Return: %x\n", BranchRecord.is_return);
-			printf("\t   Indirect: %x\n", BranchRecord.is_indirect);
-
+			//Display predictor results
+			printf("\n\t      Taken: %d\n", Taken);
 			printf("\t Prediction: %d\n", Prediction);
 			printf("\tMPrediction: %d\n", MPrediction);
-			printf("\t      Taken: %d\n", Taken);
 		}
 	}
 	cout <<"Tester complete- press enter";
@@ -99,8 +94,6 @@ uint tempIndirect = 0;
 	BR.is_indirect = tempIndirect;	//Convert hex to integer
 	MPrediction = tempMPrediction; 	//Convert hex to integer
 	Taken = tempTaken;
-
-//	delete [] temp;
 
 	return Taken; //Return taken/not taken value
 }
