@@ -58,8 +58,6 @@ ifstream tracefile;
 			//Run Predictor
 			Prediction = BranchPredictor.get_prediction(&BranchRecord, NULL);
 
-			//Test that the Prediction matches expected value
-			assert(Prediction == MPrediction);
 
 			BranchPredictor.update_predictor(&BranchRecord, NULL, Taken);
 
@@ -67,6 +65,9 @@ ifstream tracefile;
 			printf("\n\t      Taken: %d\n", Taken);
 			printf("\t Prediction: %d\n", Prediction);
 			printf("\tMPrediction: %d\n", MPrediction);
+
+			//Test that the Prediction matches expected value
+			assert(Prediction == MPrediction);
 		}
 	}
 	cout <<"Tester complete- press enter";
