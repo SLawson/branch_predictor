@@ -46,13 +46,13 @@ bool PREDICTOR::make_decision(const branch_record_c* br){
   // Use choice predictor to decide whether to use the global or local history prediction
   if (choice.get_prediction(p_history)){
     // True is defined to mean "use global"
-	#ifdef DEBUG
+	#ifndef NDEBUG
 		cout <<"Global Predictor Selected" <<endl;
 	#endif
     prediction = global.get_prediction(p_history);
   }
   else{
-	#ifdef DEBUG
+	#ifndef NDEBUG
 		cout <<"Local Predictor Selected" <<endl;
 	#endif
     // False means "use local"
@@ -77,7 +77,7 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   
   // Update choice predictor if the predictions were not the same
   if (local_last != global_last){
-	#ifdef DEBUG
+	#ifndef NDEBUG
 		cout <<"Updating Choice Predictor" <<endl;
 	#endif
     if (local_last == taken){
@@ -94,11 +94,11 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   }
 
   // Update local and global prediction tables
-  #ifdef DEBUG
+  #ifndef NDEBUG
 	cout <<"\nUpdate Local Predictor:" <<endl;
   #endif
   local.update_prediction(br->instruction_addr, taken);
-  #ifdef DEBUG
+  #ifndef NDEBUG
 	cout <<"Update Global Predictor:" <<endl;
   #endif
   global.update_prediction(path_h.get_history(), taken);
