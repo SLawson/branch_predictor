@@ -2,8 +2,9 @@
 Class: Saturation counter for branch predictor
 By: Brett Dunscomb
 Date: 3/1/2014
-Description:
-
+Description: This file initializes our saturation counters.
+It also handles the the increments/decrements 
+for the saturation counters.
 
 ************************************************************/
 
