@@ -30,6 +30,15 @@
 #define CHOICE_CTR_BITS 2
 #define CHOICE_TBL_SIZE 4096
 
+/* Uncomment this macro to build with local history table */
+// #define LHISTORY
+
+// Include local history information if compiling that version
+#ifdef LHISTORY
+#include "../src/local_history.h"
+#define LOCAL_HIST_SIZE 1024
+#endif
+
 class PREDICTOR
 {
   public:
@@ -47,6 +56,11 @@ class PREDICTOR
     predictor_table global;
     predictor_table choice;
     path_history path_h;
+
+    #ifdef LHISTORY
+    local_history local_h[LOCAL_HIST_SIZE];
+    #endif
+
 };
 
 #endif // PREDICTOR_H_SEEN

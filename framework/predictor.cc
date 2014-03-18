@@ -44,19 +44,24 @@ bool PREDICTOR::make_decision(const branch_record_c* br){
   uint p_history = path_h.get_history();
 
   // Use choice predictor to decide whether to use the global or local history prediction
-  if (choice.get_prediction(p_history)){
-    // True is defined to mean "use global"
+  if (choice.get_prediction(p_history)){ // True is defined to mean "use global"
 	#ifndef NDEBUG
 		cout <<"Global Predictor Selected" <<endl;
 	#endif
     prediction = global.get_prediction(p_history);
   }
-  else{
+
+  else{ // False means "use local"
 	#ifndef NDEBUG
 		cout <<"Local Predictor Selected" <<endl;
 	#endif
-    // False means "use local"
+
+  #ifdef LHISTORY
+    prediction = local.get_prediction(local_h[br->instruction_addr & 0x3FF].get_history());
+  #else
     prediction = local.get_prediction(br->instruction_addr);
+  #endif // ifndef LHISTORY
+    
   }
 
   return prediction;
@@ -72,7 +77,14 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   uint p_history = path_h.get_history();
 
   // Retrieve the most recent prediction results
+
+  #ifdef LHISTORY
+  uint16_t local_index = local_h[br->instruction_addr & 0x3FF].get_history();
+  bool local_last = local.get_prediction(local_index);
+  #else
   bool local_last = local.get_prediction(br->instruction_addr);
+  #endif // ifdef LHISTORY
+
   bool global_last = global.get_prediction(p_history);
   
   // Update choice predictor if the predictions were not the same
@@ -97,7 +109,14 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   #ifndef NDEBUG
 	cout <<"\nUpdate Local Predictor:" <<endl;
   #endif
+
+  #ifdef LHISTORY
+  local.update_prediction(local_index, taken);
+  local_h[br->instruction_addr & 0x3FF].update(taken);
+  #else
   local.update_prediction(br->instruction_addr, taken);
+  #endif // ifdef LHISTORY
+
   #ifndef NDEBUG
 	cout <<"Update Global Predictor:" <<endl;
   #endif

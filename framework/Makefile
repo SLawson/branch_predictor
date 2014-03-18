@@ -13,7 +13,8 @@ predict_path = ../src
 
 source = $(predict_path)/pathH.cpp				\
 		 $(predict_path)/predictor_table.cpp	\
-		 $(predict_path)/Sat_counter.cpp
+		 $(predict_path)/Sat_counter.cpp		\
+		$(predict_path)/local_history.cpp
 
 tester_src = $(predict_path)/tester.cpp
 tester_objects = cbp_inst.o op_state.o predictor.o tread.o
