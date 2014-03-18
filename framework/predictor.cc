@@ -18,12 +18,6 @@ bool PREDICTOR::get_prediction(const branch_record_c* br, const op_state_c* os)
 {
   bool prediction = false;
 	
-//	#ifdef DEBUG
-//  printf("%0x %0x %1d %1d %1d %1d ",br->instruction_addr, br->branch_target,
-//                                    br->is_indirect, br->is_conditional,
-//                                    br->is_call, br->is_return);
-//	#endif
-  
   if (!(br->is_conditional) || br->is_call || br-> is_return)
     prediction = true;
 
@@ -45,22 +39,16 @@ bool PREDICTOR::make_decision(const branch_record_c* br){
 
   // Use choice predictor to decide whether to use the global or local history prediction
   if (choice.get_prediction(p_history)){ // True is defined to mean "use global"
-	#ifndef NDEBUG
-		cout <<"Global Predictor Selected" <<endl;
-	#endif
     prediction = global.get_prediction(p_history);
   }
 
   else{ // False means "use local"
-	#ifndef NDEBUG
-		cout <<"Local Predictor Selected" <<endl;
-	#endif
 
-  #ifdef LHISTORY
+    #ifdef LHISTORY
     prediction = local.get_prediction(local_h[br->instruction_addr & 0x3FF].get_history());
-  #else
+    #else
     prediction = local.get_prediction(br->instruction_addr);
-  #endif // ifndef LHISTORY
+    #endif // ifndef LHISTORY
     
   }
 
@@ -89,9 +77,6 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   
   // Update choice predictor if the predictions were not the same
   if (local_last != global_last){
-	#ifndef NDEBUG
-		cout <<"Updating Choice Predictor" <<endl;
-	#endif
     if (local_last == taken){
       // False from the choice predictor is defined to mean "use local prediction", so we
       // drive the saturated counter toward zero when the local is correct but global is not
@@ -106,9 +91,6 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   }
 
   // Update local and global prediction tables
-  #ifndef NDEBUG
-	cout <<"\nUpdate Local Predictor:" <<endl;
-  #endif
 
   #ifdef LHISTORY
   local.update_prediction(local_index, taken);
@@ -117,9 +99,6 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
   local.update_prediction(br->instruction_addr, taken);
   #endif // ifdef LHISTORY
 
-  #ifndef NDEBUG
-	cout <<"Update Global Predictor:" <<endl;
-  #endif
   global.update_prediction(path_h.get_history(), taken);
 
   // Update path history
@@ -127,6 +106,4 @@ void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os
 
   return;
 }
-
-
 
